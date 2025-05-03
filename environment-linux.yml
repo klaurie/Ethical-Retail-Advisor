@@ -1,0 +1,18 @@
+name: eraenv
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - fastapi
+  - starlette
+  - uvicorn
+  - pytest
+  - httpx
+  - pydantic
+  - python-dotenv
+  - typing-extensions
+  - email-validator
+  - python-multipart
+  - pyyaml

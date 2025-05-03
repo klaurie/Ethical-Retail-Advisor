@@ -1,4 +1,4 @@
-from models import EthicsScore, CompanySearchResponse
+from backend.models import EthicsScore, CompanySearchResponse
 
 # Searches and returns a company name and id
 def search_company(query: str):
@@ -17,7 +17,7 @@ def evaluate_ethics(company_id: str) -> EthicsScore:
     return EthicsScore(
         overall_score=7.2,
         categories={
-            "sustainability": [9.0, "Good practices in waste management"],
-            "worker treatment": [5.0, "Average treatment of workers"],
+            "sustainability": (9.0, "Good practices in waste management"),
+            "worker treatment": (5.0, "Average treatment of workers")
         }
     )
