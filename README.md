@@ -65,6 +65,12 @@ curl -X POST http://localhost:8000/search/text?eval=true
    uvicorn main:app --reload
    ``
 
+   or
+
+   ``bash
+   python3 -m main
+   ``
+
 3. Test the API with:
    ``bash
    curl -X POST http://localhost:8000/evaluate -H "Content-Type: application/json" -d '{"company_id": "cmp-001"}'
