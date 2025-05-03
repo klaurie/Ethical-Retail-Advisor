@@ -1,3 +1,18 @@
+"""
+Backend Services Module
+
+This module provides service functions for searching companies and evaluating their ethical scores.
+It currently uses dummy data but is designed to be replaced with actual database or API calls.
+
+Services:
+- search_company: Find company information based on text query
+- evaluate_ethics: Retrieve ethical scores and details for a given company
+
+TODO:
+- Replace dummy implementations with actual database or API integrations
+- Add caching for performance optimization
+- Implement comprehensive error handling
+"""
 from backend.models import EthicsScore, CompanySearchResponse
 
 # Searches and returns a company name and id

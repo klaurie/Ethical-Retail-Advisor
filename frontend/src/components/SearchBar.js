@@ -1,3 +1,14 @@
+/**
+ * SearchBar Component
+ * 
+ * A reusable search input component that captures user queries and triggers search functionality.
+ * 
+ * Features:
+ * - Manages its own input state
+ * - Handles form submission
+ * - Prevents default form submission behavior
+ * - Passes search query to parent component via callbaack
+ */
 import React, { useState } from 'react';
 
 export default function SearchBar({ onSearch }) {

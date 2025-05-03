@@ -1,3 +1,15 @@
+"""
+Company Search Router Module
+
+This module provides API routes for searching companies by name and optionally retrieving
+their ethical evaluations in a single request.
+
+Endpoints:
+- POST /search/text: Search for a company by name with optional ethics evaluation
+
+The router leverages the search_company and evaluate_ethics service functions to perform
+the actual data retrieval and ethics scoring operations.
+"""
 from fastapi import APIRouter, Query
 from backend.models import CompanySearchRequest, CompanySearchResponse
 from backend.services import search_company, evaluate_ethics

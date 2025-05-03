@@ -1,3 +1,15 @@
+/**
+ * App.js - Main Application Component
+ * 
+ * This component serves as the entry point for the Ethical Retail Advisor application.
+ * It handles the main application state, search functionality, and rendering of results.
+ * 
+ * Key features:
+ * - Manages search results, loading states, and error handling
+ * - Connects with backend API via the searchCompany service
+ * - Formats ethics data for display in the EthicalCard component
+ * - Provides responsive UI with conditional rendering based on search state
+ */
 import React, { useState } from 'react';
 import logo from './ERA_logo.png';
 import './App.css';
