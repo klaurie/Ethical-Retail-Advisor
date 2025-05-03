@@ -17,7 +17,7 @@ def evaluate_ethics(company_id: str) -> EthicsScore:
     return EthicsScore(
         overall_score=7.2,
         categories={
-            "sustainability": 6.5,
-            "worker treatment": 8.0
+            "sustainability": [9.0, "Good practices in waste management"],
+            "worker treatment": [5.0, "Average treatment of workers"],
         }
     )

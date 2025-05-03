@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 
 ############################
 # Company Search Models
@@ -21,7 +21,9 @@ class EthicsEvalRequest(BaseModel):
 
 class EthicsScore(BaseModel):
     overall_score: float
-    categories: Dict[str, float]
+
+    # Ethics categories: name, score, and reasoning
+    categories: Dict[str, List[float, str]]
 
 
 # Resolve forward references at the end of the file
