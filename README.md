@@ -76,5 +76,27 @@ curl -X POST http://localhost:8000/search/text?eval=true
    curl -X POST http://localhost:8000/evaluate -H "Content-Type: application/json" -d '{"company_id": "cmp-001"}'
    ``
 
+4. Run frontend:
+
+  Prerequisites
+  Node.js (v14.0.0 or higher)
+  npm (v6.0.0 or higher)
+  
+  Installation
+  Navigate to the frontend directory: cd frontend
+
+  Install dependencies: npm install
+
+  Development Server
+  Start the development server: npm start
+
+  This will run the app in development mode and open it in your browser at http://localhost:3000.
+
+  Running Both Frontend and Backend
+  You can run both services simultaneously by:
+
+  Start the backend in one terminal as described above
+  Start the frontend in another terminal using the steps in this section
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
