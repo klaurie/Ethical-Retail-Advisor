@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchBar from './SearchBar'; 
-import logo from '../era-logo.png'; 
+import logo from '../imgs/era-logo.png'; 
 
 export default function MainHeader({ onSearch }) {
   return (

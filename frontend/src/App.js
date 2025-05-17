@@ -11,7 +11,13 @@
  * - Provides responsive UI with conditional rendering based on search state
  */
 import React, { useState } from 'react';
-import logo from './ERA_logo.png';
+
+import FeatureColumns from './components/FeatureColumns'; // Import the new component
+
+import sustainabilityIcon from './imgs/leaf_icon.png';
+import laborRightsIcon from './imgs/people_icon.png';
+import transparencyIcon from './imgs/coin_icon.png';
+
 import './App.css';
 
 import MainHeader from './components/MainHeader';
@@ -24,6 +30,25 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentQuery, setCurrentQuery] = useState(""); // Store the current search query
+    const [showIntro, setShowIntro] = useState(true); // Assuming you still have this
+
+  const featureItemsData = [
+    {
+      imageSrc: sustainabilityIcon,
+      imageAlt: 'Leaf icon representing sustainability',
+      text: 'Sustainability' // This matches the text from your image
+    },
+    {
+      imageSrc: laborRightsIcon,
+      imageAlt: 'People icon representing labor rights',
+      text: 'Labor Rights'
+    },
+    {
+      imageSrc: transparencyIcon,
+      imageAlt: 'Dollar sign icon representing transparency',
+      text: 'Transparency'
+    }
+  ];
 
   // This function will handle search queries from the SearchBar
   const handleSearch = async (searchQuery) => {
@@ -68,6 +93,7 @@ function App() {
         searchBarPlaceholder="Search for a company (e.g. Starbucks)"
       />
       <main className="App-page-content">
+        <FeatureColumns items={featureItemsData} />
         {loading && <p>Searching...</p>}
         {error && <p className="error">{error}</p>}
         
