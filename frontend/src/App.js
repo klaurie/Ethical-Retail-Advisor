@@ -22,6 +22,7 @@ import './App.css';
 
 import MainHeader from './components/MainHeader';
 import EthicalCard from './components/EthicalResponse';
+import AppIntro from './components/AppIntro';
 import { searchCompany } from './Services'; // Import the searchCompany function from Services.js
 
 function App() {
@@ -93,7 +94,12 @@ function App() {
         searchBarPlaceholder="Search for a company (e.g. Starbucks)"
       />
       <main className="App-page-content">
-        <FeatureColumns items={featureItemsData} />
+          {showIntro && (
+          <section className="discovery-section">
+            <AppIntro /> 
+            <FeatureColumns items={featureItemsData} />
+          </section>
+        )}
         {loading && <p>Searching...</p>}
         {error && <p className="error">{error}</p>}
         

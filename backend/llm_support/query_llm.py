@@ -1,3 +1,4 @@
+import os
 from backend.llm_support.client_setup import setup_client
 
 def parse_response(response):
@@ -29,7 +30,7 @@ def query_llm(query: str, client):
     response = client.chat.completions.create(
     model="deepseek-chat",
     messages=[
-        {"role": "system", "content": "You are an assstant that helps users find information about companies and their products."},
+        {"role": "system", "content": os.getenv("LLM_SYSTEM_PROMPT", "You are an assitant that helps users find information about companies and their products.")},
         {"role": "user", "content": query},
     ],
     stream=False

@@ -114,8 +114,10 @@
 }
 
 .main-title-style {
-  font-size: 1.8em; 
-  font-weight: bold;
+  font-family: "Roboto Slab", serif; /* Use a serif font for the title */
+  font-size: 2.8em; 
+  font-weight: 500;
+  color: #fffcf7; /* White text for the title */
 }
 
 /* SearchBar component specific styling within header */
@@ -221,8 +223,8 @@
   justify-content: space-around; /* Distributes space around items */
   align-items: flex-start; /* Aligns items to the top */
   flex-wrap: wrap; /* Allows columns to wrap on smaller screens if needed */
-  gap: 20px; /* Space between columns */
-  padding: 20px 0; /* Padding above and below the container */
+  gap: 10px; /* Space between columns */
+  padding: 10px 0 20px 0; /* Padding above and below the container */
   text-align: center; /* Center text within columns by default */
 }
 
@@ -231,25 +233,21 @@
   flex-direction: column; /* Stack image row and text row vertically */
   align-items: center; /* Center content within each column */
   flex-basis: calc(33.333% - 20px); /* Aim for 3 columns, adjusting for gap. May need media queries for robustness */
-  min-width: 200px; /* Minimum width for a column before wrapping */
+  min-width: 180px; /* Minimum width for a column before wrapping */
   box-sizing: border-box;
   padding: 15px;
-  /* Optional: add a border or background to columns */
-  /* border: 1px solid #eee; */
-  /* border-radius: 8px; */
-  /* background-color: #f9f9f9; */
 }
 
 .feature-image-row {
-  margin-bottom: 15px; /* Space between image and text */
+  margin-bottom: 0px; /* Space between image and text */
   width: 100%; /* Ensure the row takes up column width */
   display: flex;
   justify-content: center;
 }
 
 .feature-image {
-  max-width: 100px; /* Adjust as needed, controls image size */
-  max-height: 100px; /* Adjust as needed */
+  max-width: 170px; /* Adjust as needed, controls image size */
+  max-height: 170px; /* Adjust as needed */
   height: auto; /* Maintain aspect ratio */
   object-fit: contain; /* Ensures image fits well without cropping, or use 'cover' */
   border-radius: 4px; /* Optional: rounded corners for images */
@@ -260,7 +258,7 @@
 }
 
 .feature-text {
-  font-size: 1em;
+  font-size: 1.3em;
   line-height: 1.5;
   color: #333;
   margin: 0; /* Remove default paragraph margin */
@@ -286,4 +284,54 @@
   .feature-columns-container .feature-column:last-child {
     margin-bottom: 0;
   }
+}
+
+.app-intro-container {
+  padding: 10px 0; /* Reduced vertical padding */
+  margin-bottom: 5px; /* Reduced space below the intro text */
+  text-align: center; 
+}
+
+.app-intro-text {
+  font-family: "Roboto", serif;
+  font-size: 1.5em; /* Slightly larger font for emphasis */
+  font-weight: 400;
+  line-height: 1.4; /* Improve readability */
+  color: #1a2e40; /* A soft, readable text color */
+  max-width: 700px; /* Constrain line length for better readability */
+  margin-left: auto; /* Center the paragraph block if max-width is applied */
+  margin-right: auto; /* Center the paragraph block if max-width is applied */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fffcf7; /* Your existing page background color */
+  color: #333; /* Default text color */
+}
+
+/* Example: Ensure headings also use Inter if they have specific styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif; /* Explicitly set for headings if needed */
+}
+
+/* Example: Ensure buttons use Inter */
+button {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Example: Ensure inputs use Inter */
+input, textarea, select {
+  font-family: 'Inter', sans-serif;
+}
+
+/* If your .llm-response pre tag uses a monospace font, you might want to keep that specific */
+.App-page-content .llm-response pre {
+  /* Keep monospace for code/raw text, or change if desired */
+  font-family: 'Courier New', Courier, monospace; 
+  /* ... other pre styles ... */
 }
