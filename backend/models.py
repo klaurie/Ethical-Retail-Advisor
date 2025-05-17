@@ -22,9 +22,10 @@ class CompanySearchRequest(BaseModel):
     query: str
 
 class CompanySearchResponse(BaseModel):
-    name: str
-    company_id: str
+    name: str = "N/A"
+    company_id: str = "N/A"
     ethics_score: Optional["EthicsScore"] = None
+    llm_response: Optional[str] = None
 
 
 ############################
