@@ -49,8 +49,8 @@ if __name__ == "__main__":
     response = client.chat.completions.create(
     model="deepseek-chat",
     messages=[
-        {"role": "system", "content": "You are a helpful assistant"},
-        {"role": "user", "content": "Hello"},
+        {"role": "system", "content": "You are an assstant that helps users find information about companies and their products."},
+        {"role": "user", "content": ""},
     ],
     stream=False
     )

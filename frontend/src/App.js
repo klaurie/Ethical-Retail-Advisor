@@ -15,17 +15,19 @@ import logo from './ERA_logo.png';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import EthicalCard from './components/EthicalResponse';
-import { searchCompany } from './services/api';
+import { searchCompany } from './Services'; // Import the searchCompany function from Services.js
 
 function App() {
   // Initialize state variables
   const [searchResult, setSearchResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentQuery, setCurrentQuery] = useState(""); // Store the current search query
 
   // This function will handle search queries from the SearchBar
   const handleSearch = async (searchQuery) => {
     try {
+      setCurrentQuery(searchQuery); // Set the current query for display
       setLoading(true);
       setError(null);
       
@@ -69,13 +71,31 @@ function App() {
         {loading && <p>Searching...</p>}
         {error && <p className="error">{error}</p>}
         
-        {searchResult && (
-          <div className="results">
-            <h2>Search Results</h2>
-            {searchResult.ethics_score ? (
-              <EthicalCard {...formatEthicsData(searchResult)} />
-            ) : (
-              <p>Found: {searchResult.name}</p>
+               {searchResult && (
+          <div className="results" style={{marginTop: '20px', width: '80%', maxWidth: '800px'}}>
+            <h2>Results for: "{currentQuery}"</h2>
+            
+            <p><strong>Company (from backend lookup):</strong> {searchResult.name} (ID: {searchResult.company_id})</p>
+
+            {/* Display LLM General Info */}
+            {searchResult.llm_response && (
+              <div className="llm-response" style={{ border: '1px solid #eee', padding: '15px', margin: '20px 0', backgroundColor: '#fdfdfd' }}>
+                <h3>General Information from Assistant:</h3>
+                <pre style={{ 
+                  whiteSpace: 'pre-wrap', 
+                  textAlign: 'left', 
+                  backgroundColor: '#f0f0f0', 
+                  padding: '10px', 
+                  borderRadius: '4px',
+                  fontFamily: 'monospace',
+                  fontSize: '0.9em',
+                  lineHeight: '1.5',
+                  maxHeight: '500px', // Keep it from being too long
+                  overflowY: 'auto'   // Add scroll for long content
+                }}>
+                  {searchResult.llm_response}
+                </pre>
+              </div>
             )}
           </div>
         )}
