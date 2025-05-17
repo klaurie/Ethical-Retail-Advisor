@@ -25,6 +25,7 @@ def query_llm(query: str, client):
     Returns:
         str: The response from the LLM.
     """
+    # TODO: Integrate with model providers other than DeepSeek
     response = client.chat.completions.create(
     model="deepseek-chat",
     messages=[

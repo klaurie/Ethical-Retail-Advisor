@@ -13,7 +13,8 @@
 import React, { useState } from 'react';
 import logo from './ERA_logo.png';
 import './App.css';
-import SearchBar from './components/SearchBar';
+
+import MainHeader from './components/MainHeader';
 import EthicalCard from './components/EthicalResponse';
 import { searchCompany } from './Services'; // Import the searchCompany function from Services.js
 
@@ -62,12 +63,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="logo-container">
-          <img src={logo} alt="Ethical Retail Advisor Logo" className="app-logo" />
-          <h1>Ethical Retail Advisor</h1>
-        </div>
-        <SearchBar onSearch={handleSearch} /> 
+      <MainHeader 
+        onSearch={handleSearch} 
+        searchBarPlaceholder="Search for a company (e.g. Starbucks)"
+      />
+      <main className="App-page-content">
         {loading && <p>Searching...</p>}
         {error && <p className="error">{error}</p>}
         
@@ -99,7 +99,7 @@ function App() {
             )}
           </div>
         )}
-      </header>
+        </main>
     </div>
   );
 }
