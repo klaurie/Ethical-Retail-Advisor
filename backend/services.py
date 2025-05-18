@@ -14,25 +14,72 @@ TODO:
 - Implement comprehensive error handling
 """
 from backend.models import EthicsScore, CompanySearchResponse
+from backend.ethics_db import EthicsDatabase
+from bson.objectid import ObjectId
+from datetime import datetime
 
-# Searches and returns a company name and id
-def search_company(query: str):
-    # TODO: Update dummy mapping with a database/web search
-    mapping = {
-        "apple": ("Apple Inc.", "cmp-001"),
-        "microsoft": ("Microsoft Inc.", "cmp-002"),
-    }
+# Searches and returns a company name and generated ID
+def search_company(query: str) -> CompanySearchResponse:
+    db = EthicsDatabase()
+    company_doc = db.collection.find_one(
+        {"company_name": {"$regex": f"^{query}$", "$options": "i"}},  # case-insensitive exact match
+        {"_id": 0, "company_name": 1}
+    )
+    db.close()
 
-    name, cid = mapping.get(query.lower(), ("Unknown", "cmp-000"))
-    return CompanySearchResponse(name=name, company_id=cid)
+    if company_doc:
+        company_name = company_doc["company_name"]
+        company_id = f"cmp-{abs(hash(company_name)) % 1000:03d}"  # consistent fake ID
+        return CompanySearchResponse(name=company_name, company_id=company_id)
+    else:
+        print(f"No company result found for '{query}'. Web search functionality not implemented yet.")
+        return CompanySearchResponse(name="Unknown", company_id="cmp-000")
 
-# Searches and returns a company ethical score
+# Searches and returns a company name, ID and ethics score
 def evaluate_ethics(company_id: str) -> EthicsScore:
-    # TODO: Update dummy mapping with a database/web search and eval
+    db = EthicsDatabase()
+    
+    # company_id expected as stringified ObjectId or cmp-### fake id
+    try:
+        # Try interpreting as ObjectId first
+        obj_id = ObjectId(company_id)
+        company_doc = db.collection.find_one({"_id": obj_id})
+    except Exception:
+        # Fallback: search by generated cmp-### id based on company_name hash
+        all_companies = list(db.collection.find())
+        company_doc = None
+        for company in all_companies:
+            gen_id = f"cmp-{abs(hash(company['company_name'])) % 1000:03d}"
+            if gen_id == company_id:
+                company_doc = company
+                break
+    
+    db.close()
+    
+    if not company_doc:
+        print(f"No ethical data found for {company_id}. Web search functionality not implemented yet")
+        return EthicsScore(
+            company_name="Unknown",
+            category_tags=None,
+            reasoning=None,
+            sources=None,
+            modified_time=None,
+            scores={}
+        )
+    
+    # Parse modified_time to datetime if it's string
+    mod_time = company_doc.get("modified_time")
+    if isinstance(mod_time, str):
+        try:
+            mod_time = datetime.fromisoformat(mod_time)
+        except Exception:
+            mod_time = None
+    
     return EthicsScore(
-        overall_score=7.2,
-        categories={
-            "sustainability": (9.0, "Good practices in waste management"),
-            "worker treatment": (5.0, "Average treatment of workers")
-        }
+        company_name=company_doc.get("company_name", "Unknown"),
+        category_tags=company_doc.get("category_tags"),
+        reasoning=company_doc.get("reasoning"),
+        sources=company_doc.get("sources"),
+        modified_time=mod_time,
+        scores=company_doc.get("scores", {})
     )

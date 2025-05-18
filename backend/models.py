@@ -14,6 +14,7 @@ Note:
 """
 from pydantic import BaseModel
 from typing import Dict, Optional, Tuple
+from datetime import datetime
 
 ############################
 # Company Search Models
@@ -34,10 +35,13 @@ class EthicsEvalRequest(BaseModel):
     company_id: str
 
 class EthicsScore(BaseModel):
-    overall_score: float
+    company_name: str
+    category_tags: Optional[str]
+    reasoning: Optional[str]
+    sources: Optional[str]
+    modified_time: Optional[datetime]
+    scores: Dict[str, float]
 
-    # Ethics categories: name, score, and reasoning
-    categories: Dict[str, Tuple[float, str]]
 
 
 # Resolve forward references at the end of the file
