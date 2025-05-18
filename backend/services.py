@@ -9,7 +9,6 @@ Services:
 - evaluate_ethics: Retrieve ethical scores and details for a given company
 
 TODO:
-- Replace dummy implementations with actual database or API integrations
 - Add caching for performance optimization
 - Implement comprehensive error handling
 """
