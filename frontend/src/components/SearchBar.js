@@ -26,7 +26,7 @@ export default function SearchBar({ onSearch }) {
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)} // Updates query state when user types
-                placeholder="Search products..."
+                placeholder="Search for a company or product..."
                 aria-label="Search"
             />
             <button type="submit" aria-label="Submit search">
