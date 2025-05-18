@@ -1,7 +1,23 @@
+"""
+Ethics Database Module
+
+This module provides an interface for interacting with the MongoDB collection 
+used to store and manage ethical evaluations of companies.
+
+Functionality includes:
+- Creating or updating a company's ethical profile
+- Retrieving an individual company's stored evaluation
+- Deleting a company profile from the database
+- Listing multiple company profiles for display or inspection
+
+Note:
+    The collection ensures uniqueness on company names via an ascending index.
+    All timestamps are stored in UTC ISO 8601 format.
+"""
+
 from pymongo import MongoClient, ASCENDING
 from datetime import datetime, timezone
 from typing import Optional, Dict, Any
-
 
 class EthicsDatabase:
     def __init__(self, db_url="mongodb://localhost:27017", db_name="ethical_db"):
