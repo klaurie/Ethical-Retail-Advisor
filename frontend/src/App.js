@@ -11,21 +11,50 @@
  * - Provides responsive UI with conditional rendering based on search state
  */
 import React, { useState } from 'react';
-import logo from './ERA_logo.png';
+
+import FeatureColumns from './components/FeatureColumns'; // Import the new component
+
+import sustainabilityIcon from './imgs/leaf_icon.png';
+import laborRightsIcon from './imgs/people_icon.png';
+import transparencyIcon from './imgs/coin_icon.png';
+
 import './App.css';
-import SearchBar from './components/SearchBar';
+
+import MainHeader from './components/MainHeader';
 import EthicalCard from './components/EthicalResponse';
-import { searchCompany } from './services/api';
+import AppIntro from './components/AppIntro';
+import { searchCompany } from './Services'; // Import the searchCompany function from Services.js
 
 function App() {
   // Initialize state variables
   const [searchResult, setSearchResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentQuery, setCurrentQuery] = useState(""); // Store the current search query
+    const [showIntro, setShowIntro] = useState(true); // Assuming you still have this
+
+  const featureItemsData = [
+    {
+      imageSrc: sustainabilityIcon,
+      imageAlt: 'Leaf icon representing sustainability',
+      text: 'Sustainability' // This matches the text from your image
+    },
+    {
+      imageSrc: laborRightsIcon,
+      imageAlt: 'People icon representing labor rights',
+      text: 'Labor Rights'
+    },
+    {
+      imageSrc: transparencyIcon,
+      imageAlt: 'Dollar sign icon representing transparency',
+      text: 'Transparency'
+    }
+  ];
 
   // This function will handle search queries from the SearchBar
   const handleSearch = async (searchQuery) => {
     try {
+      setCurrentQuery(searchQuery); // Set the current query for display
       setLoading(true);
       setError(null);
       
@@ -60,26 +89,49 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="logo-container">
-          <img src={logo} alt="Ethical Retail Advisor Logo" className="app-logo" />
-          <h1>Ethical Retail Advisor</h1>
-        </div>
-        <SearchBar onSearch={handleSearch} /> 
+      <MainHeader 
+        onSearch={handleSearch} 
+        searchBarPlaceholder="Search for a company (e.g. Starbucks)"
+      />
+      <main className="App-page-content">
+          {showIntro && (
+          <section className="discovery-section">
+            <AppIntro /> 
+            <FeatureColumns items={featureItemsData} />
+          </section>
+        )}
         {loading && <p>Searching...</p>}
         {error && <p className="error">{error}</p>}
         
-        {searchResult && (
-          <div className="results">
-            <h2>Search Results</h2>
-            {searchResult.ethics_score ? (
-              <EthicalCard {...formatEthicsData(searchResult)} />
-            ) : (
-              <p>Found: {searchResult.name}</p>
+               {searchResult && (
+          <div className="results" style={{marginTop: '20px', width: '80%', maxWidth: '800px'}}>
+            <h2>Results for: "{currentQuery}"</h2>
+            
+            <p><strong>Company (from backend lookup):</strong> {searchResult.name} (ID: {searchResult.company_id})</p>
+
+            {/* Display LLM General Info */}
+            {searchResult.llm_response && (
+              <div className="llm-response" style={{ border: '1px solid #eee', padding: '15px', margin: '20px 0', backgroundColor: '#fdfdfd' }}>
+                <h3>General Information from Assistant:</h3>
+                <pre style={{ 
+                  whiteSpace: 'pre-wrap', 
+                  textAlign: 'left', 
+                  backgroundColor: '#f0f0f0', 
+                  padding: '10px', 
+                  borderRadius: '4px',
+                  fontFamily: 'monospace',
+                  fontSize: '0.9em',
+                  lineHeight: '1.5',
+                  maxHeight: '500px', // Keep it from being too long
+                  overflowY: 'auto'   // Add scroll for long content
+                }}>
+                  {searchResult.llm_response}
+                </pre>
+              </div>
             )}
           </div>
         )}
-      </header>
+        </main>
     </div>
   );
 }

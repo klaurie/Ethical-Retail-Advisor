@@ -63,7 +63,7 @@
 .search-bar button {
   padding: 12px 24px;
   font-size: 18px;
-  background-color: #2C3E4F;
+  background-color: #2d4e6e;
   color: #FAF9F6;
   font-weight: bold;
   border: none;
@@ -73,5 +73,265 @@
 }
 
 .search-bar button:hover {
-  background-color: #2b5a73;
+  background-color: #46738b;
+}
+
+/* Main Header Styling */
+.App-main-header {
+  background-color: #162a41; /* Navy Blue */
+  color: white;
+  width: 100%; /* Makes the header span the full width of its parent */
+  box-sizing: border-box; /* Ensures padding doesn't add to the 100% width */
+  display: flex; /* Used to center the .header-content */
+  justify-content: center; /* Centers .header-content horizontally */
+  padding: 20px 0; /* Vertical padding for the header bar, no horizontal padding here */
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column; /* Aligns items in a column */
+  align-items: center; /* Centers items horizontally */
+
+  width: 100%; /* Makes the header content span the full width of its parent */
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Constrains the content width, not the header bar */
+  padding: 0 20px; /* Horizontal padding for the content within the header */
+  box-sizing: border-box;
+}
+
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; /* Add space between logo/title and search bar */
+}
+
+.app-logo-style { /* Renamed from .app-logo to match previous CSS context */
+  height: 50px; 
+  margin-right: 15px;
+  /* filter: brightness(0) invert(1); /* Uncomment if logo needs to be white */
+}
+
+.main-title-style {
+  font-family: "Roboto Slab", serif; /* Use a serif font for the title */
+  font-size: 2.8em; 
+  font-weight: 500;
+  color: #fffcf7; /* White text for the title */
+}
+
+/* SearchBar component specific styling within header */
+.App-main-header .search-bar {
+  width: 100%; /* Make search bar take available width within its centered alignment */
+  max-width: 500px; /* Optional: constrain the search bar width */
+  display: flex; /* Keep input and button in a row */
+}
+
+.App-main-header .search-bar input[type="search"] {
+  padding: 10px 15px;
+  font-size: 1em;
+  border: 1px solid #ccc; 
+  border-radius: 4px 0 0 4px; 
+  background-color: white;
+  color: #333;
+  flex-grow: 1; /* Allow input to take available space */
+}
+
+/* ... existing styles ... */
+
+/* Page Content Area */
+.App-page-content {
+  max-width: 900px; /* Sets a maximum width for the content area */
+  margin: 30px auto; /* Centers the content area on the page with top/bottom margin */
+  padding: 20px 30px; /* Inner spacing for the content */
+  background-color: #ffffff; /* White background for the content block */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A subtle shadow for a "card" effect */
+  text-align: left; /* Default text alignment to left for content within this area */
+}
+
+/* Styling for loading and error messages within App-page-content */
+.App-page-content .status-message { /* General class for loading/error */
+  font-size: 1.1em;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 4px;
+  text-align: center; /* Center align status messages */
+}
+
+.App-page-content .error-message { /* Specific for error messages */
+  color: #c0392b; /* Red text for errors */
+  background-color: #fdd; /* Light red background */
+  border: 1px solid #c0392b;
+}
+
+/* Results container styling (if you haven't moved to SearchResultsDisplay.js styles yet) */
+/* If you have SearchResultsDisplay.js with its own .results-display-area, style that instead */
+.App-page-content .results {
+  margin-top: 20px;
+  /* background-color: #f9f9f9; /* Light grey for results background */
+  /* border-radius: 6px; */
+  /* border: 1px solid #e0e0e0; */
+  /* padding: 20px; */ /* These styles might be better on a more specific results container */
+}
+
+.App-page-content .results h2 {
+  color: #2c3e50; /* Darker heading color */
+  margin-top: 0;
+  text-align: center; /* Center the "Results for..." heading */
+}
+
+/* LLM Response container styling */
+.App-page-content .llm-response {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  margin: 20px 0;
+  background-color: #f9f9f9; /* Slightly off-white background */
+  border-radius: 4px;
+}
+
+.App-page-content .llm-response h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.App-page-content .llm-response pre {
+  white-space: pre-wrap;
+  text-align: left;
+  background-color: #f0f0f0; /* Light grey for the pre block */
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for code/raw text */
+  font-size: 0.9em;
+  line-height: 1.6;
+  max-height: 500px;
+  overflow-y: auto;
+  color: #333; /* Text color inside pre */
+}
+
+
+/* Ensure the overall App container allows for this centering */
+.App {
+  /* text-align: center; /* This might be too broad, remove if .App-page-content handles its own alignment */
+  background-color: #f4f6f8; /* A light background for the whole page, if desired */
+  min-height: 100vh; /* Ensure page background covers viewport height */
+  padding-bottom: 50px; /* Add some padding at the bottom of the page */
+}
+
+.feature-columns-container {
+  display: flex;
+  justify-content: space-around; /* Distributes space around items */
+  align-items: flex-start; /* Aligns items to the top */
+  flex-wrap: wrap; /* Allows columns to wrap on smaller screens if needed */
+  gap: 10px; /* Space between columns */
+  padding: 10px 0 20px 0; /* Padding above and below the container */
+  text-align: center; /* Center text within columns by default */
+}
+
+.feature-column {
+  display: flex;
+  flex-direction: column; /* Stack image row and text row vertically */
+  align-items: center; /* Center content within each column */
+  flex-basis: calc(33.333% - 20px); /* Aim for 3 columns, adjusting for gap. May need media queries for robustness */
+  min-width: 180px; /* Minimum width for a column before wrapping */
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.feature-image-row {
+  margin-bottom: 0px; /* Space between image and text */
+  width: 100%; /* Ensure the row takes up column width */
+  display: flex;
+  justify-content: center;
+}
+
+.feature-image {
+  max-width: 170px; /* Adjust as needed, controls image size */
+  max-height: 170px; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensures image fits well without cropping, or use 'cover' */
+  border-radius: 4px; /* Optional: rounded corners for images */
+}
+
+.feature-text-row {
+  width: 100%;
+}
+
+.feature-text {
+  font-size: 1.3em;
+  line-height: 1.5;
+  color: #333;
+  margin: 0; /* Remove default paragraph margin */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .feature-column {
+    flex-basis: calc(50% - 20px); /* Two columns on medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-columns-container {
+    flex-direction: column; /* Stack columns vertically */
+    align-items: center;
+  }
+  .feature-column {
+    flex-basis: 100%; /* One column on small screens */
+    max-width: 300px; /* Constrain width when stacked */
+    margin-bottom: 20px;
+  }
+  .feature-columns-container .feature-column:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.app-intro-container {
+  padding: 10px 0; /* Reduced vertical padding */
+  margin-bottom: 5px; /* Reduced space below the intro text */
+  text-align: center; 
+}
+
+.app-intro-text {
+  font-family: "Roboto", serif;
+  font-size: 1.5em; /* Slightly larger font for emphasis */
+  font-weight: 400;
+  line-height: 1.4; /* Improve readability */
+  color: #1a2e40; /* A soft, readable text color */
+  max-width: 700px; /* Constrain line length for better readability */
+  margin-left: auto; /* Center the paragraph block if max-width is applied */
+  margin-right: auto; /* Center the paragraph block if max-width is applied */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fffcf7; /* Your existing page background color */
+  color: #333; /* Default text color */
+}
+
+/* Example: Ensure headings also use Inter if they have specific styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif; /* Explicitly set for headings if needed */
+}
+
+/* Example: Ensure buttons use Inter */
+button {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Example: Ensure inputs use Inter */
+input, textarea, select {
+  font-family: 'Inter', sans-serif;
+}
+
+/* If your .llm-response pre tag uses a monospace font, you might want to keep that specific */
+.App-page-content .llm-response pre {
+  /* Keep monospace for code/raw text, or change if desired */
+  font-family: 'Courier New', Courier, monospace; 
+  /* ... other pre styles ... */
 }
