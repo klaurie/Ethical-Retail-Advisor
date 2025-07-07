@@ -1,8 +1,11 @@
 import os
 from dotenv import load_dotenv
 
+from backend.llm_support.LLM_Client import LLM_Client
+
 load_dotenv()
 
+# TODO currently will only support OpenAI to get a prototype working, will 
 def setup_client():
     """
     Setup the client for the specified model provider and model.
@@ -29,7 +32,7 @@ def setup_client():
     else:
         raise ValueError(f"Unsupported model provider: {model_provider}")
 
-def setup_deepseek_client():
+def setup_deepseek_client(model="deepseek-chat"):
     """
     Setup the DeepSeek client for the specified model.
     
@@ -57,7 +60,10 @@ def setup_deepseek_client():
             base_url=os.getenv("DEEPSEEK_API_BASE_URL", "https://api.deepseek.com"),
         )
 
-    return client
+    return LLM_Client(
+        model=model,
+        client=client,
+        provider="deepseek")
 
 def setup_openai_client(model="gpt-3.5-turbo"):
     """
@@ -84,10 +90,13 @@ def setup_openai_client(model="gpt-3.5-turbo"):
     else:
         client = OpenAI(
             api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_API_BASE_URL", "https://api.openai.com"),
         )
 
-    return client
+    return LLM_Client(
+        model=model,
+        client=client,
+        provider="openai"
+    )
 
 def setup_gemini_client(model="gemini"):
     """
@@ -113,7 +122,11 @@ def setup_gemini_client(model="gemini"):
     else:
         client = genai.Client(api_key="YOUR_API_KEY")
 
-    return client
+    return LLM_Client(
+        model=model,
+        client=client,
+        provider="gemini"
+    )
 
 def setup_ollama_client(model="llama2"):
     """
@@ -138,9 +151,13 @@ def setup_ollama_client(model="llama2"):
         headers={}
         )
     
-    return client
+    return LLM_Client(
+        model=model,
+        client=client,
+        provider="ollama"
+    )
 
-def setup_huggingface_client():
+def setup_huggingface_client(model="bert-base-uncased"):
     """
     Setup the HuggingFace client.
     
@@ -161,18 +178,17 @@ def setup_huggingface_client():
     else:
         client = InferenceClient(repo_id=os.getenv("LLM_MODEL", "bert-base-uncased"), token=api_key)
 
-    return client
+    return LLM_Client(
+        model=model,
+        client=client,
+        provider="huggingface"
+    )
 
 if __name__ == "__main__":
     # Example usage    
-    client = setup_client()
-    response = client.chat.completions.create(
-    model="deepseek-chat",
-    messages=[
-        {"role": "system", "content": "You are an assstant that helps users find information about companies and their products."},
-        {"role": "user", "content": ""},
-    ],
-    stream=False
+    agent = setup_client()
+    response = agent.get_company_name(
+    "Tell me about Apple"
     )
 
-    print(response.choices[0].message.content)
+    print(response)

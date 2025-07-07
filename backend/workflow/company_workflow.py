@@ -1,8 +1,5 @@
 import re
-import json
 from typing import Optional
-from backend.llm_support.client_setup import setup_client
-from backend.llm_support.query_llm import query_llm_with_functions
 
 def clean_query(query: str) -> str:
     """
@@ -46,64 +43,25 @@ def clean_query(query: str) -> str:
 
 def identify_company(query: str) -> str:
     """
-    Identify the company name from the query using LLM function calling.
+    Identify the company name from the query.
 
-    Uses an LLM with function calling to extract the company name from the query.
-    Falls back to basic text processing if LLM fails.
+    Use a basic LLM to extract the company name from the query.
     
-    Args:
+    input:
         query (str): The input query string that may contain company names and additional context.
 
-    Returns:
-        str: The identified company name, or cleaned query if no valid company name is found.
+    output:
+        str: The identified company name, or an empty string if no valid company name is found.
     """
-    if not query or not query.strip():
-        return ""
+    # Prompt to use with the LLM for company identification
+
+    # merge prompt with the cleaned query
+
+    # query LLM to identify the company name
+
+    # parse response to extract the company name
     
-    # Define the function for LLM function calling
-    functions = [
-        {
-            "name": "extract_company",
-            "description": "Extracts the company name from a user query about business ethics, sustainability, or corporate information.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "company_name": {
-                        "type": "string",
-                        "description": "The name of the company mentioned in the query. Extract only the core company name without suffixes like Inc., Corp., etc. If no company is mentioned, return an empty string."
-                    }
-                },
-                "required": ["company_name"]
-            }
-        }
-    ]
-    
-    try:
-        # Setup LLM client
-        client = setup_client()
-        
-        # Query LLM with function calling
-        function_response = query_llm_with_functions(
-            query=query,
-            client=client,
-            functions=functions,
-            function_call={"name": "extract_company"}
-        )
-        
-        # Extract company name from function response
-        if function_response and "company_name" in function_response:
-            company_name = function_response["company_name"].strip()
-            if company_name:
-                print(f"LLM extracted company: '{company_name}' from query: '{query}'")
-                return company_name
-        
-        print("LLM function call failed or returned empty result, falling back to text processing")
-        
-    except Exception as e:
-        print(f"Error in LLM company extraction: {e}, falling back to text processing")
-    
-    # Fallback to basic text processing
-    return clean_query(query)
+    # return identified company name
 def fuzzy_search(query: str) -> str:
     """
     Perform a fuzzy search to find the best matching company.
@@ -152,7 +110,7 @@ def get_company_info(query: str) -> str:
     evaluating ethics, and populating the database.
     """
     # Clean query before identifying company name
-    cleaned_query = clean_query(query)
+    clean_query = clean_query(query)
     # Extract company name from the query
     company = identify_company(query)
     
